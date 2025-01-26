@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Untitled</title>
-  
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,17 +9,50 @@
     <style>
         .hidden { display: none; }
         .active-tab { color: #10b981; }
+        .confirmation-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
     </style>
 </head>
 <body class="bg-gray-100 h-screen">
+    <!-- Giriş Yap / Kayıt Ol Sayfası -->
+    <div id="authPage" class="h-full flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-md w-96">
+            <h1 class="text-2xl font-bold mb-6 text-center">Hoş Geldiniz</h1>
+            <div id="loginForm">
+                <input type="text" id="loginUsername" placeholder="Kullanıcı Adı" class="w-full p-2 mb-4 border border-gray-300 rounded-md">
+                <input type="password" id="loginPassword" placeholder="Şifre" class="w-full p-2 mb-4 border border-gray-300 rounded-md">
+                <button onclick="login()" class="w-full bg-green-500 text-white py-2 rounded-md">Giriş Yap</button>
+                <p class="text-center mt-4 text-sm text-gray-600">Hesabınız yok mu? <span class="text-green-500 cursor-pointer" onclick="switchAuthForm('register')">Kayıt Ol</span></p>
+            </div>
+            <div id="registerForm" class="hidden">
+                <input type="text" id="registerUsername" placeholder="Kullanıcı Adı" class="w-full p-2 mb-4 border border-gray-300 rounded-md">
+                <input type="password" id="registerPassword" placeholder="Şifre" class="w-full p-2 mb-4 border border-gray-300 rounded-md">
+                <button onclick="register()" class="w-full bg-green-500 text-white py-2 rounded-md">Kayıt Ol</button>
+                <p class="text-center mt-4 text-sm text-gray-600">Zaten hesabınız var mı? <span class="text-green-500 cursor-pointer" onclick="switchAuthForm('login')">Giriş Yap</span></p>
+            </div>
+        </div>
+    </div>
+
     <!-- Ana Sayfa -->
-    <div id="homePage" class="h-full">
+    <div id="homePage" class="h-full hidden">
         <div class="bg-white p-4 flex items-center justify-between border-b border-gray-200">
             <div class="flex items-center space-x-2">
                 <i class="fas fa-search text-gray-500"></i>
                 <input type="text" class="w-full p-2 text-sm border border-gray-300 rounded-md focus:outline-none" placeholder="Ürün, kategori, marka ve @satıcı ara">
             </div>
             <div class="flex items-center space-x-4">
+                <span id="usernameDisplay" class="font-semibold text-gray-700"></span>
                 <i class="fas fa-bell text-gray-500 relative">
                     <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">4067</span>
                 </i>
@@ -53,48 +76,7 @@
                     <button class="mt-2 w-full bg-green-500 text-white py-1 rounded-md" onclick="addToCart('DAĞ BİSİKLETİ XC41AD', 5499.99)">Sepete Ekle</button>
                 </div>
             </div>
-            <!-- Bisiklet İlanı 2 -->
-            <div class="bg-white p-2 rounded-lg shadow-sm">
-                <div class="relative">
-                    <img src="https://i.ibb.co/7jKnXB3/2-xc41ad-500.webp" alt="Bisiklet" class="w-full rounded-lg">
-                    <div class="absolute top-2 right-2 bg-white p-1 rounded-full">
-                        <i class="fas fa-heart text-gray-500"></i>
-                    </div>
-                </div>
-                <div class="mt-2 text-sm">
-                    <div class="font-bold">DAĞ BİSİKLETİ XC42BD</div>
-                    <div class="text-green-500 font-bold">6.199,99 TL</div>
-                    <button class="mt-2 w-full bg-green-500 text-white py-1 rounded-md" onclick="addToCart('DAĞ BİSİKLETİ XC42BD', 6199.99)">Sepete Ekle</button>
-                </div>
-            </div>
-            <!-- Bisiklet İlanı 3 -->
-            <div class="bg-white p-2 rounded-lg shadow-sm">
-                <div class="relative">
-                    <img src="https://i.ibb.co/7jKnXB3/2-xc41ad-500.webp" alt="Bisiklet" class="w-full rounded-lg">
-                    <div class="absolute top-2 right-2 bg-white p-1 rounded-full">
-                        <i class="fas fa-heart text-gray-500"></i>
-                    </div>
-                </div>
-                <div class="mt-2 text-sm">
-                    <div class="font-bold">DAĞ BİSİKLETİ XC43CD</div>
-                    <div class="text-green-500 font-bold">7.499,99 TL</div>
-                    <button class="mt-2 w-full bg-green-500 text-white py-1 rounded-md" onclick="addToCart('DAĞ BİSİKLETİ XC43CD', 7499.99)">Sepete Ekle</button>
-                </div>
-            </div>
-            <!-- Bisiklet İlanı 4 -->
-            <div class="bg-white p-2 rounded-lg shadow-sm">
-                <div class="relative">
-                    <img src="https://i.ibb.co/7jKnXB3/2-xc41ad-500.webp" alt="Bisiklet" class="w-full rounded-lg">
-                    <div class="absolute top-2 right-2 bg-white p-1 rounded-full">
-                        <i class="fas fa-heart text-gray-500"></i>
-                    </div>
-                </div>
-                <div class="mt-2 text-sm">
-                    <div class="font-bold">DAĞ BİSİKLETİ XC44DD</div>
-                    <div class="text-green-500 font-bold">8.999,99 TL</div>
-                    <button class="mt-2 w-full bg-green-500 text-white py-1 rounded-md" onclick="addToCart('DAĞ BİSİKLETİ XC44DD', 8999.99)">Sepete Ekle</button>
-                </div>
-            </div>
+            <!-- Diğer ürünler buraya eklenebilir -->
         </div>
         <div class="bg-white fixed bottom-0 w-full flex justify-around border-t border-gray-200 py-2">
             <div class="text-center text-green-500">
@@ -102,7 +84,9 @@
                 <div class="text-xs">Ana Sayfa</div>
             </div>
             <div class="text-center" onclick="switchTab('cartPage')">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-shopping-cart relative">
+                    <span id="cartNotification" class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1 hidden">0</span>
+                </i>
                 <div class="text-xs">Sepetim</div>
             </div>
         </div>
@@ -120,6 +104,7 @@
             <div class="mt-6 text-right font-bold">
                 Toplam: <span id="totalPrice">0.00 TL</span>
             </div>
+            <button onclick="switchTab('paymentPage')" class="w-full mt-6 bg-green-500 text-white py-2 rounded-md">Ödemeye Geç</button>
         </main>
         <div class="bg-white fixed bottom-0 w-full flex justify-around border-t border-gray-200 py-2">
             <div class="text-center" onclick="switchTab('homePage')">
@@ -133,13 +118,76 @@
         </div>
     </div>
 
+    <!-- Ödeme Sayfası -->
+    <div id="paymentPage" class="h-full hidden">
+        <div class="p-4 border-b">
+            <h1 class="text-lg font-medium">Ödeme</h1>
+        </div>
+        <main class="p-4">
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <h2 class="text-lg font-semibold mb-4">Kredi Kartı Bilgileri</h2>
+                <input type="text" id="cardNumber" placeholder="Kart Numarası" class="w-full p-2 mb-4 border border-gray-300 rounded-md">
+                <input type="text" id="cardExpiry" placeholder="Son Kullanma Tarihi (MM/YY)" class="w-full p-2 mb-4 border border-gray-300 rounded-md">
+                <input type="text" id="cardCVC" placeholder="CVC" class="w-full p-2 mb-4 border border-gray-300 rounded-md">
+                <button onclick="processPayment()" class="w-full bg-green-500 text-white py-2 rounded-md">Ödeme Yap</button>
+            </div>
+        </main>
+        <div class="bg-white fixed bottom-0 w-full flex justify-around border-t border-gray-200 py-2">
+            <div class="text-center" onclick="switchTab('cartPage')">
+                <i class="fas fa-arrow-left"></i>
+                <div class="text-xs">Geri</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sipariş Onay Mesajı -->
+    <div id="confirmationMessage" class="confirmation-message hidden">
+        <h1>🎉 Tebrikler! 🎉</h1>
+        <p>Siparişiniz başarıyla oluşturuldu.</p>
+    </div>
+
     <script>
         let cart = [];
         let total = 0;
+        let currentUser = null;
 
+        // Giriş Yap ve Kayıt Ol İşlevleri
+        function switchAuthForm(formType) {
+            document.getElementById('loginForm').classList.toggle('hidden', formType === 'register');
+            document.getElementById('registerForm').classList.toggle('hidden', formType === 'login');
+        }
+
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            if (username && password) {
+                currentUser = username;
+                document.getElementById('authPage').classList.add('hidden');
+                document.getElementById('homePage').classList.remove('hidden');
+                document.getElementById('usernameDisplay').textContent = currentUser;
+            } else {
+                alert('Lütfen kullanıcı adı ve şifre girin.');
+            }
+        }
+
+        function register() {
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+            if (username && password) {
+                currentUser = username;
+                document.getElementById('authPage').classList.add('hidden');
+                document.getElementById('homePage').classList.remove('hidden');
+                document.getElementById('usernameDisplay').textContent = currentUser;
+            } else {
+                alert('Lütfen kullanıcı adı ve şifre girin.');
+            }
+        }
+
+        // Sepet ve Ödeme İşlevleri
         function switchTab(tabId) {
             document.getElementById('homePage').classList.add('hidden');
             document.getElementById('cartPage').classList.add('hidden');
+            document.getElementById('paymentPage').classList.add('hidden');
             document.getElementById(tabId).classList.remove('hidden');
             if (tabId === 'cartPage') {
                 updateCart();
@@ -149,6 +197,7 @@
         function addToCart(name, price) {
             cart.push({ name, price });
             total += price;
+            updateCartNotification();
             alert(`${name} sepete eklendi!`);
         }
 
@@ -167,10 +216,32 @@
             });
             totalPrice.textContent = `${total.toFixed(2)} TL`;
         }
+
+        function updateCartNotification() {
+            const cartNotification = document.getElementById('cartNotification');
+            cartNotification.textContent = cart.length;
+            cartNotification.classList.remove('hidden');
+        }
+
+        function processPayment() {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const cardExpiry = document.getElementById('cardExpiry').value;
+            const cardCVC = document.getElementById('cardCVC').value;
+            if (cardNumber && cardExpiry && cardCVC) {
+                // Ödeme başarılı mesajını göster
+                document.getElementById('confirmationMessage').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('confirmationMessage').classList.add('hidden');
+                    cart = [];
+                    total = 0;
+                    updateCartNotification();
+                    document.getElementById('cartNotification').classList.add('hidden');
+                    switchTab('homePage');
+                }, 3000); // 3 saniye sonra mesajı kapat ve ana sayfaya dön
+            } else {
+                alert('Lütfen tüm kredi kartı bilgilerini girin.');
+            }
+        }
     </script>
-</body>
-</html>
-<!-- partial -->
-  
 </body>
 </html>
